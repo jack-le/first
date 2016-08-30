@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+*{
+    margin:0;
+    padding:0;
+}
+    .main{
+        position: fixed;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        background: #ff6700;
+        top: 0;
+    }
+    .container-fluid{
+        margin:0;
+        padding:0;
+    }
+    .iron{
+        width: 30px;
+        height: 30px;
+        margin-top:10px;
+        background:#f00;
+    }
+    @media only screen and (min-width:750px ){
+        .r_b{
+            display: none;
+        }
+    }
+    @media only screen and (min-width:260px ) and (max-width: 749px){
+        .r_a{
+            display: none;
+        }
+        .logo div:nth-child(1){
+            display: none;
+        }
+        .logo div:nth-child(2) img{
+                padding-left: 25%;
+                width: 130px;
+            }
+    }
+    
+    .count{
+        width: 100%;
+    }
+    .count .f01>div{
+       padding:0 2px;
+    }
+    .count .f01 div img{
+
+    }
+    .count .col-xs-3{
+        padding:0 5px;
+    }
+    #subian{
+        width:100%;
+    }
+    li{
+        list-style: none;
+    }
+</style>
+</head>
+<body>
+<div class="container-fluid">
+    <img src="images/Layer.jpg"  class="img-responsive" style="width: 100%;" >
+
+</div>
+<div class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="row logo">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-3"><img src="images/Logo1.png"></div>
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-3"></div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="row r_a">
+                    <div class="col-xs-2 r_a">首页</div>
+                    <div class="col-xs-2 r_a">首页</div>
+                    <div class="col-xs-2 r_a">首页</div>
+                    <div class="col-xs-2 r_a">首页</div>
+                    <div class="col-xs-2 r_a">首页</div>
+                    <div class="col-xs-2 r_a"></div>
+                </div>
+                <div class="row  r_b">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-2"><p class="iron"></p></div>
+                    <div class="col-xs-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="count">
+    <div class="container-fluid">
+        <div class="row f01">
+            <div class="col-sm-10 col-xs-12 col-sm-offset-1">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3"><img src="images/Layer.jpg" class="img-responsive" style="width: 100%;">
+                <h5>Amazing Australia</h5>
+                        <p>Become inspired to travel to Australia. Discover fantastic thin</p></div>
+                <div class="col-xs-12 col-sm-6 col-md-3"><img src="images/Layer.jpg" class="img-responsive" style="width: 100%;">
+                <h5>Amazing Australia</h5>
+                        <p>Become inspired to travel to Australia. Discover fantastic thin</p></div>
+                <div class="col-xs-12 col-sm-6 col-md-3"><img src="images/Layer.jpg" class="img-responsive" style="width: 100%;"><h5>Amazing Australia</h5>
+                        <p>Become inspired to travel to Australia. Discover fantastic thin</p></div>
+                <div class="col-xs-12 col-sm-6 col-md-3"><img src="images/Layer.jpg" class="img-responsive" style="width: 100%;"><h5>Amazing Australia</h5>
+                        <p>Become inspired to travel to Australia. Discover fantastic thin</p></div>
+            </div>   
+            </div>
+            
+        </div>
+    </div>
+</div>
+ <section id="suibian">
+        <h1 class="col-xs-12 col-sm-10 col-sm-offset-1" style="padding: 0 10px">
+            Before you leave
+        </h1>
+        <ul class="suibianBox col-xs-12 col-sm-10 col-sm-offset-1">
+            <li class="col-xs-12 col-sm-4">
+                <h4>visa & documents</h4>
+                <p>There are some things you should take care of before going to y</p>
+            </li>
+            <li class="col-xs-12 col-sm-4">
+                <h4>visa & documents</h4>
+                <p>There are some things you should take care of before going to y</p>
+            </li>
+            <li class="col-xs-12 col-sm-4">
+                <h4>visa & documents</h4>
+                <p>There are some things you should take care of before going to y</p>
+            </li>
+
+        </ul>
+    </section>
+</body>
+</html>
