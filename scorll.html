@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .box {
+        width: 800px;
+        height: 300px;
+        border: 2px solid red;
+        margin: 100px auto;
+        position: relative;
+    }
+    
+    .content {
+        width: 600px;
+        height: 100%;
+        border: 1px solid blue;
+      	margin-left: 3px;
+        background: #ccc;
+        overflow: hidden;
+        position: absolute;
+    }
+    
+    .bar {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 20px;
+        background: #ff6700;
+    }
+    
+    .slider {
+        position: absolute;
+        width: 15px;
+        height:100%;
+        top: 0;
+        left: 2px;
+        background: #000000;
+    }
+    
+    hr {
+        padding: 10px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="content">
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                 <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                 <hr>
+                aa 
+                <hr>
+                aa 
+                <hr>
+                aa 
+                <br>
+                aa 
+        </div>
+        <div class="bar">
+            <div class="slider"></div>
+        </div>
+    </div>
+</body>
+<script>
+var rate = $(".content").height()/$(".content")[0].scrollHeight ,
+    $slider = $(".slider"),  
+    $bar = $(".bar");
+    rate >= 1 ? $bar.css("display" , "none") : $slider.css("height",rate*$(".bar").height());
+
+(function(win, doc, $) {  
+    function CusScrollBar(options) {  
+        this._init(options);  
+    }  
+    $.extend(CusScrollBar.prototype, {  
+        _init: function(options) {  
+            var self = this;  
+            self.options = {  
+                    scrollDir: "y", //滚动方向  
+                    contSelector: "", //滚动内容选择器  
+                    barSelector: "", //滚动条选择器  
+                    sliderSelector: "", //滚动滑块选择器  
+                    wheelStep: "10", //滚轮步长  
+                },  
+                $.extend(true, self.options, options || {});  
+            self._initDomEvent();  
+            return self;  
+        },  
+        _initDomEvent: function() {  
+            var self = this;  
+            var opts = this.options;  
+            this.$cont = $(opts.contSelector);  
+            this.$slider = $(opts.sliderSelector);  
+            this.$bar = opts.barSelector ? $(opts.barSelector) : self.$slider.parent();  
+            this.$doc = $(doc);  
+            this._initSliderDragEvent()._bindContScroll()._bindMousewheel();  
+        },  
+        _initSliderDragEvent: function() {  
+            var slider = this.$slider;  
+            var self = this;  
+            sliderEl = slider[0];  
+            if (sliderEl) {  
+                var doc = this.$doc,  
+                    dragStartPagePosition,  
+                    dragStartScrollPosition,  
+                    dragContBarRate;  
+  
+                function mousemoveHnader(e) {  
+                    e.preventDefault();  
+                    if (dragStartPagePosition == null) {  
+                        return;  
+                    };  
+                    self.scrollTo(dragStartScrollPosition + (e.pageY - dragStartPagePosition) * dragContBarRate);  
+                };  
+                slider.on("mousedown.scroll", function(e) {  
+                    e.preventDefault();  
+                    dragStartPagePosition = e.pageY;  
+                    dragStartScrollPosition = self.$cont.scrollTop();  
+                    dragContBarRate = self.getMaxScrollPosition() / self.getMaxSliderPositon();  
+                    doc.on("mousemove.scroll", mousemoveHnader).on("mouseup", function() {  
+                        doc.off(".scroll");  
+                    });  
+                });  
+            };  
+            return self;  
+        },  
+        _bindContScroll: function() {  
+            var self = this;  
+            self.$cont.on("scroll", function() {  
+                var sliderEl = self.$slider && self.$slider[0];  
+                if (sliderEl) {  
+                    sliderEl.style.top = self.getSliderPosition() + "px";  
+                };  
+            });  
+            return self;  
+        },  
+        _bindMousewheel:function(){  
+            var self = this;  
+            self.$cont.parent().on("mousewheel DOMMouseScroll",function(e){  
+                e.preventDefault();  
+                var oEv = e.originalEvent,  
+                    wheelRange = oEv.wheelDelta ? -oEv.wheelDelta/120 : (oEv.detail || 0)/3;  
+                self.scrollTo(self.$cont[0].scrollTop + wheelRange*self.options.wheelStep)  
+            })  
+            return self;  
+        },  
+        getSliderPosition() {  
+            var self = this,  
+                maxSliderPosition = self.getMaxSliderPositon();  
+                console.log()  
+            return Math.min(maxSliderPosition, maxSliderPosition * self.$cont.scrollTop() / self.getMaxScrollPosition());  
+        },  
+        getMaxScrollPosition: function() {  
+            var self = this;  
+            return Math.max(self.$cont.height(), self.$cont[0].scrollHeight) - self.$cont.height();  
+        },  
+        getMaxSliderPositon: function() {  
+            var self = this;  
+            return self.$bar.height() - self.$slider.height();  
+        },  
+        scrollTo: function(positionVal) {  
+            var self = this;  
+            self.$cont.scrollTop(positionVal)  
+        }  
+    })  
+    win.CusScrollBar = CusScrollBar;  
+})(window, document, jQuery)  
+
+var myscroll = new CusScrollBar({
+    contSelector: ".content", //滚动内容选择器
+    barSelector: ".bar", //滚动条选择器
+    sliderSelector: ".slider", //滚动滑块选择器
+})
+
+</script>
+
+</html>
