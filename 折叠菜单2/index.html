@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>coument</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0
+    }
+    
+    body {
+        font-size: 12px;
+        font-family: "微软雅黑", "黑体";
+    }
+    
+    ul,
+    li {
+        list-style: none;
+    }
+    
+    a:link,
+    a:visited {
+        text-decoration: none;
+    }
+    
+    .list {
+        position: absolute;
+        top: 0;
+        left: -226px;
+        width: 226px;
+        height: 598px;
+        overflow-y: scroll;
+        background: #00acac;
+        border-bottom: solid 1px #316a91;
+        margin: 40px auto 0 auto;
+    }
+    
+    .list ul li {
+        background-color: #00acac;
+        border: solid 1px #316a91;
+        border-bottom: 0;
+    }
+    
+    .list ul li a {
+        padding-left: 10px;
+        color: #fff;
+        font-size: 12px;
+        display: block;
+        font-weight: bold;
+        height: 36px;
+        line-height: 36px;
+        position: relative;
+    }
+    
+    .list ul li .inactive {
+        background: url(images/off.png) no-repeat 206px center;
+    }
+    
+    .list ul li .inactives {
+        background: url(images/on.png) no-repeat 206px center;
+    }
+    
+    .list ul li ul {
+        display: none;
+    }
+    
+    .list ul li ul li {
+        border-left: 0;
+        border-right: 0;
+        background-color: #02e0e0;
+        border-color: #467ca2;
+    }
+    
+    .list ul li ul li ul {
+        display: none;
+    }
+    
+    .list ul li ul li a {
+        padding-left: 20px;
+    }
+    
+    .list ul li ul li ul li {
+        background-color: #03fcfc;
+        border-color: #6196bb;
+    }
+    
+    .last {
+        background-color: #11f6f6;
+        border-color: #6196bb;
+    }
+    
+    .list ul li ul li ul li a {
+        color: #316a91;
+        padding-left: 30px;
+    }
+    
+    .warp {
+        width: 840px;
+        margin: 0 auto;
+        position: relative;
+        background: #EAEAF6;
+        border: 1px solid #000;
+    }
+    </style>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('.inactive').click(function() {
+            var self = $(this);
+            if (self.siblings('ul').css('display') == 'none') {
+                self.parent('li').siblings('li').removeClass('inactives');
+                self.addClass('inactives');
+                self.siblings('ul').slideDown(100);
+                var $aul = self.parents('li').siblings('li').children('ul');
+                if ($aul.css('display') == 'block') {
+                    $aul.parent('li').children('a').removeClass('inactives');
+                    $aul.slideUp(100);
+                }
+            } else {
+                //控制自身变成+号
+                self.removeClass('inactives');
+                //控制自身菜单下子菜单隐藏
+                self.siblings('ul').slideUp(100);
+                //控制自身子菜单变成+号
+                var $ali = self.siblings('ul').children('li');
+                $ali.children('a').addClass('inactives');
+                //控制自身菜单下子菜单隐藏
+                $ali.children('ul').slideUp(100);
+
+                //控制同级菜单只保持一个是展开的（-号显示）
+                $ali.children('a').removeClass('inactives');
+            }
+        })
+    });
+    </script>
+</head>
+
+<body>
+    <div calss="warp">
+        <div class="list">
+            <ul class="yiji">
+                <li><a href="#" class="inactive">第1章 产品介绍</a>
+                    <ul>
+                        <li><a href="#">介绍</a></li>
+                        <li><a href="#">产品概述</a></li>
+                        <li><a href="#">产品部署</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="inactive">第2章 访问移动安全服务品台</a>
+                    <ul style="display: none">
+                        <li><a href="#">介绍</a></li>
+                        <li><a href="#">访问移动安全服务品台</a></li>
+                        <li><a href="#">移动安全服务平台WEB管理页面说明</a></li>
+                        <li><a href="#">系统菜单</a></li>
+                        <li class="last"><a href="#">导航栏</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="inactive">第3章 安全开发</a>
+                    <ul style="display: none">
+                        <li><a href="#">介绍</a>
+                        </li>
+                        <li><a href="#" class="inactive">安全规范</a>
+                            <ul>
+                                <li><a href="#">应用管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" class="inactive">安全加固</a>
+                            <ul>
+                                <li><a href="#">应用加固</a></li>
+                                <li><a href="#">SDK加固</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">安全组件</a></li>
+                        <li><a href="#" class="inactive">安全密匙白盒加密</a>
+                            <ul>
+                                <li><a href="#">生成白盒方案</a></li>
+                                <li><a href="#">密匙管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">通讯协议加密SDK</a></li>
+                        <li><a href="#">安全软键盘SDK</a></li>
+                        <li><a href="#">防界面劫持SDK</a></li>
+                        <li><a href="#">防短信劫持SDK</a></li>
+                        <li><a href="#">图形验证码SDK</a></li>
+                        <li><a href="#">反外挂SDK</a></li>
+                        <li class="last"><a href="#">清场劫持SDK</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">第4章 威胁感知</a></li>
+                <li><a href="#">第5章 策略配置</a>
+                    <ul>
+                        <li><a href="#">介绍</a></li>
+                        <li><a href="#">加固策略</a>
+                            <ul>
+                                <li><a href="#">添加策略</a></li>
+                                <li><a href="#">配置加固策略</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">第6章 配置管理</a>
+                    <ul>
+                        <li><a href="#">介绍</a></li>
+                        <li><a href="#">用户管理</a>
+                            <ul>
+                                <li><a href="#">用户列表</a></li>
+                                <li><a href="#">用户组</a></li>
+                                <li><a href="#">应用审计分配</a></li>
+                                <li><a href="#">外接认证服务器</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">系统升级</a>
+                            <ul>
+                                <li><a href="#">在线升级</a></li>
+                                <li><a href="#">离线升级</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">系统配置</a>
+                            <ul>
+                                <li><a href="#">时间配置</a></li>
+                                <li><a href="#">网络配置</a></li>
+                                <li><a href="#">访问控制规制</a></li>
+                                <li><a href="#">设备保护</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">联动配置</a>
+                            <ul>
+                                <li><a href="#">应用加固配置</a></li>
+                                <li><a href="#">安全密匙白盒配置</a></li>
+                                <li><a href="#">安全测评配置</a></li>
+                                <li><a href="#">威胁感知配置</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>第一章  产品介绍</h1>
+            <div class="introduce">
+                <h2>介绍</h2>
+                <p>本章总体介绍移动安全服务平台和所需的部署环境，内容包括：</p>
+                
+                <ul>
+                    <li>产品概述</li>
+                    <li>产品部署</li>
+                </ul>
+                
+                <h2>产品概述</h2>
+                <p>移动互联网的发展，智能终端的发展对企业各项业务发展也带来了深远的影响。企业对用户提供的服务和业务的不同渠道形态中，移动端已经从一个补充性的渠道发展为主体渠道。移动端完全复制了其他业务渠道的功能，甚至由于移动端天生的便利性，很多业务移动端成为唯一渠道。移动端的安全风险也随着发展日益严重。</p>
+                <p>移动业务面临的安全风险可分为移动端应用自身安全和黑色产业两个方面，以移动端病毒木马、漏洞、盗版应用等形态承载的移动端应用威胁，主要包括：通过移动端篡改内容、获取用户敏感信息、二次打包插入广告、二次打包植入木马、窃取账户，以及通过移动端入侵服务器等危害：而黑色产业呈现产业化、分工化、规模化、流程化等特点。包含欺诈交易、虚假营销欺诈，“羊毛党”，大数据黑产等。黑产背后一般有一个完整的产业链从业群体支撑，黑产技术往往是一整套组合技术，有针对性、迭代快，企业面对这类威胁时，又使传统移动端安全防范手段失效。</p>
+                <p>移动安全服务平台对移动应用的设计、研发，以及发布阶段所涉及的各种安全需求解决方案进行整合，使界面统一化、认证统一化，并且在深度研究金融行业用户的业务特性基础上，进行业务强耦合的流程设计，使产品更贴切用户业务需求。同时，结合梆梆移动安全指数，定制化每一个用户的专属安全基线，从而为用户提供更客观移动端安全解决方案。</p>
+                <p>另外，移动安全服务平台在移动应用的运营阶段，为用户提供数据采集、威胁感知，及渠道监测等运营安全监控能力。更有效的应对包含欺诈交易、虚假营销欺诈、“羊毛党”等黑色产业所带来的移动安全隐患。</p>
+                <h2>产品部署</h2>
+                <p>移动安全服务平台部署灵活，由平台自身系统设备和用户根据需要配套的功能模块设备组成。移动安全服务平台支持公有云和私有云的方式部署，针对于私有云部署方式，其所需的服务器硬件配置及操作系统要求，详细如下表所示：</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <ht>项目</ht>
+                            <ht>规格</ht>
+                            <ht>说明</ht>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>操作系统</td>
+                            <td>Ubuntu</td>
+                            <td>14.04</td>
+                        </tr>
+                        <tr>
+                            <td>处理器</td>
+                            <td>8核(最低)</td>
+                            <td>需支持硬件虚拟化VT-X</td>
+                        </tr>
+                        <tr>
+                            <td>内存</td>
+                            <td>16GB </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>硬盘</td>
+                            <td>2TBytes</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>网络接口</td>
+                            <td>1000baseT</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>注意事项：</p>
+                <ul>
+                    <li>1.上述为移动安全服务平台的服务器配置及系统要求，对于平台所集成的部分功能，需参照对应服务能力所需单点产品的配置需求。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
