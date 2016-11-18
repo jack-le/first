@@ -50,65 +50,29 @@
         font-size: 14px;
         font-weight: bold;
     }
-    
-    .warp .menu_list {
-        width: 80px;
-        height: 35px;
-        color: #fff;
-        text-align: center;
-        line-height: 35px;
-        background: #00acac;
-        position: absolute;
-        right: 32px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        top: 2px;
-        border-radius: 5px;
-    }
-    #loadpdf{
-        position: absolute;
-        width:80px;
-        height: 35px;
-        top: 2px;
-        right: 118px;
-        border-radius: 5px;
-        background: #00acac;
-        color:#fff;
-        text-align: center;
-        line-height: 35px;
-        font-size: 16px;
-        text-decoration: underline;
-    }
-    .warp .menu_show {
-        right: 5px;
-    }
-    
     .list {
         position: absolute;
-        top: 40px;
-        right: -100%;
         width: 226px;
         height: 100%;
         box-sizing: border-box;
         overflow-y: scroll;
-        background: #4a555e;
-        border-bottom: solid 1px #316a91;
-        transition: all .5s ease-in-out;
+        background: #fff;
     }
     
     .list ul li {
-        background-color: #4a555e;
+        background-color: #fff;
         border-bottom: 0;
     }
     
-    .list ul li a:hover {
-        background: #00acac;
+    .list>ul> li > a:hover {
+        background-color: #d3d4e9;
     }
-    
+    .list>ul>li>ul>li a:hover{
+        color: #00acac;
+    }
     .list ul li a {
         padding-left: 10px;
-        color: #fff;
+        color: #1b222a;
         font-size: 12px;
         display: block;
         font-weight: bold;
@@ -119,10 +83,12 @@
     
     .list ul li .inactive {
         background: url(images/off.png) no-repeat 190px center;
+        background-size: 12px;
     }
     
     .list ul li .inactives {
         background: url(images/on.png) no-repeat 190px center;
+        background-size: 12px;
     }
     
     .list ul li ul {
@@ -132,19 +98,23 @@
     .list ul li ul li {
         border-left: 0;
         border-right: 0;
-        background-color: #242e37;
+        background-color: #e5e4f4;
     }
-    
     .list ul li ul li ul {
         display: none;
     }
     
     .list ul li ul li a {
-        padding-left: 20px;
+        padding-left: 36px;
+        padding-right: 30px;
+         white-space:nowrap;
+          text-overflow:ellipsis; 
+          -o-text-overflow:ellipsis; 
+          overflow:hidden;
     }
     
     .list ul li ul li ul li {
-        background-color: #1a2229;
+        background-color: #e5e4f4;
     }
     
     .last {
@@ -153,14 +123,16 @@
     }
     
     .list ul li ul li ul li a {
-        color: #316a91;
-        padding-left: 30px;
+        padding-left: 50px;
+        font-size: 9px;
+        font-weight: normal;
     }
     
     .warp .content {
         padding: 20px;
         height: 500px;
         overflow-y: scroll;
+        margin-left: 212px;
     }
     
     .warp .content table {
@@ -199,7 +171,7 @@
     }
     
     .warp .content .img img {
-        width: 783px;
+        width: 570px;
         margin: 5px 0;
     }
     

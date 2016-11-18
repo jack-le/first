@@ -19,10 +19,4 @@
                 $ali.children('a').removeClass('inactives');
             }
         })
-        $(".menu_list").click(function() {
-            $(".warp .list").toggleClass("menu_show")
-        });
-        $(".warp .content").on("click",function(){
-            $(".warp .list").removeClass("menu_show");
-        })
     });
