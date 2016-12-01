@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>判断上传文件的大小</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+       var maxsize = 1*1024*1024;//1M
+       function fileSize(){
+
+           var obj_file=document.getElementById("main");
+
+
+          // 非IE用这个方法获取文件大小
+           var file_size=obj_file.files[0].size;
+           //IE获取文件大小  首先要有activeX插件 ，借助<img>标签的dynsrc属性 间接获取文件大小
+          //  var obj_img = document.getElementById('tempimg');
+          //  obj_img.dynsrc=obj_file.value;
+          //  filesize = obj_img.fileSize;
+           console.log(file_size);
+           if (file_size>maxsize) {
+             alert("上传的文件大于1M");
+           }else {
+             alert("可以上传");
+           }
+         console.log(888888);
+       }
+    </script>
+    <img id="tempimg" dynsrc="" src="" style="display:none" />
+    <input type="file" id="main"/>
+    <input type="button" name="上传文件" value="上传文件" onclick="fileSize()">
+  </body>
+</html>
