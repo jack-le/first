@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<style type="text/css">
+	 *{
+	 	margin:0;
+	 	padding:0;
+	 }
+	.mask{
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #000;
+        opacity: .5;
+        filter: Alpha(opacity = 50);
+    }
+	.maskhide{
+        overflow: hidden;
+    }
+    .dialog-container{
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        overflow: hidden;
+    }
+    .dialog-module{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1002;
+        top:92px;
+        background: white;
+        background: #eaeaf5;
+        animation: movedown .5s ease-out alternate;
+        -webkit-animation:movedown .5s ease-out;
+    } 
+    @keyframes movedown{
+        from {
+            top:-100%;
+        }
+        to{
+            top:92px;
+        }
+    }
+    @-webkit-keyframes movedown{
+        from {
+            top:-100%;
+        }
+        to{
+            top:92px;
+        }  
+    }
+    .dialog-title{
+        height: 40px;
+        background: #00caca;
+        overflow: hidden;
+        color: white;
+        cursor: move;
+    }
+    .dialog-title h1{
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 26px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    span.dialog-closebtn{
+        float: right;
+        display: block;
+        margin-right: 22px;
+        margin-top: 2px;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 32px;
+    }
+    .dialog-closebtn:hover{
+        background: #00adad;
+    }
+    .dialog-content{
+        margin: 20px auto;
+    }
+    .dialog-wh{
+        width: 300px;
+        height: 68px;
+        padding: 0 20px;
+    }
+    .dialog-content .tips{
+        width: 380px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+    .dialog-content .tips img{
+        vertical-align: middle;
+    }
+    .dialog-btns{
+        height: 35px;
+        line-height: 35px;
+        color: white;
+        text-align: center;
+        margin: 20px 0;
+    }
+    .dialog-btns .btn{
+        display: inline-block;
+        width: 130px;
+        height: 35px;
+        line-height: 35px;
+        vertical-align: middle;
+        text-align: center;
+        cursor: pointer;
+        margin: 0px 6px;
+        font-weight:bold;
+        color: #fff;
+    }
+     .dialog-btns .info-cancel{
+        background: #f37474;
+    }
+    .dialog-btns .info-sub{
+        background:#00acac;
+    }
+    .dialog-btns .info-save{
+        background:#00acac;
+    }
+    .dialog-btns .info-sub:hover , .dialog-btns .info-save:hover{
+        background: #02a2a2;
+    }
+
+    
+
+    .wh {
+        width:800px;
+        height: 1200px;
+    }
+	</style>
+</head>
+<body style="width: 2000px;height: 1200px;">
+<button id="btn">确定</button>
+	<script type="text/javascript">
+(function(win,$){
+    function Dialog(options){
+        this._init(options)
+    };
+    $.extend(Dialog.prototype,{
+        _init:function(options){
+            var self = this;
+            self.options = {
+                title:"",//选填项
+                showClosebtn:true, //默认是true表示显示关闭按钮
+                content:"",
+                contenturl:"",
+                btns:"",
+                contentClass:'',
+                showTitle:true,
+                callback:null,
+            };
+            $.extend(true, self.options, options || {});
+            this._render();
+            self._initDomEvent();
+            return self;
+        },
+        _initDomEvent:function(){
+            var options = this.options;
+            this.$container = $(".dialog-container");
+            this.$mask = $(".mask");
+            this.$module = $('.dialog-module');
+            this.$close = $('.dialog-closebtn');
+            this.$title = $('.dialog-title');
+            this.$btns = $('.dialog-btns');
+            this.drag(this.$module,this.$title);
+            this.scorll(this.$container);
+            this._initBindEvent();
+        },
+        _initBindEvent:function(){
+            var self = this;
+
+            self.$container.on("click",function(){
+            	self.hide();
+            });
+            self.$module.on("click",function(e){
+                e.stopPropagation();
+            });
+            self.$close.on("click",function(){
+            	self.hide();
+            });
+            self.$btns.on("click", '.info-sub', function() {
+                 self.options.callback && self.options.callback() ;
+                 self.hide();
+             });
+        },
+        _render:function(){
+             var options = this.options;
+             var a =  options.showClosebtn ? '<span class="dialog-closebtn">×</span>' : '';
+             var b =  options.content !== "" ? options.content : "" ;
+             var h ='<div class="mask"></div>'+
+                    '<div class="dialog-container">'+
+                        '<div class="dialog-module">'+
+                           ' <div class="dialog-title">'+
+                                '<h1>'+options.title+'</h1>'+
+                                  a+
+                            '</div>'+
+                            '<div class="dialog-content">'+options.content+'</div>'+
+                            '<div class="dialog-btns">'+options.btns+'</div>'+
+                        '</div>'+
+                    '</div>';
+                    if(options.contenturl !== ""){
+                        $(".dialog-content").load(options.contenturl);
+                    };
+            $("body").append(h).addClass('maskhide');
+            options.contentClass !== "" ? $(".dialog-content").addClass(options.contentClass) : $(".dialog-content").addClass('dialog-wh');
+
+        },
+        hide:function(){
+            this.$container.remove();
+            this.$mask.remove();
+            $('body').removeClass("maskhide");
+            return self; 
+        },
+        drag:function(outerobj,innerobj){
+            var obj = innerobj || outerobj;
+             obj.on("mousedown.drag", function(event) {
+                event.preventDefault();
+                 var offset_x = outerobj[0].offsetLeft; //x坐标
+                 var offset_y = outerobj[0].offsetTop; //y坐标
+                 /* 获取当前鼠标的坐标 */
+                 var mouse_x = event.pageX;
+                 var mouse_y = event.pageY;
+                 $(document).on("mousemove.drag", function(ev) {
+                    ev.preventDefault();
+                    if(mouse_x == null){
+                        return;
+                    }
+                     var _x = ev.pageX - mouse_x;
+                     var _y = ev.pageY - mouse_y;
+                     var now_x = (offset_x + _x) + "px";
+                     var now_y = (offset_y + _y) + "px";
+                     outerobj.css({
+                         top: now_y,
+                         left: now_x
+                     });
+                     return this;
+                 }).on("mouseup",function(){
+                    $(this).off(".drag")
+                 });
+             });
+        },
+        scorll:function(obj){
+            var self = this;  
+            obj.on("mousewheel DOMMouseScroll",function(e){ 
+                console.log(e.originalEvent.wheelDelta) 
+                e.preventDefault();  
+                var oEv = e.originalEvent,  
+                    wheelRange = oEv.wheelDelta ? -oEv.wheelDelta/120 : (oEv.detail || 0)/3;  
+                obj.scrollTop(obj[0].scrollTop + wheelRange*20)  
+            })  
+            return self; 
+        }
+    });
+    window.Dialog = Dialog;
+})(window,window.$)
+	$("#btn").on("click",function(){
+		 new Dialog({
+		 	    title:"提示",//选填项
+                showClosebtn:true, //默认是true表示显示关闭按钮
+                content:"你的输入有误",
+                btns:"",
+                showTitle:true,
+                callback:null,
+                btns:'<a href="javascript:;" class="info-sub btn">确定</a>',
+                callback:function(){
+                	console.log(1);
+                },
+                contentClass:'wh',
+		 })
+	})
+	</script>
+</body>
+</html>
