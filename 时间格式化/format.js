@@ -9,23 +9,18 @@ function timeFormat(date, temple) {
 	hours = date.getHours();
 	minus = date.getMinutes();
 	seconds = date.getSeconds();
-
 	if (month < 10) {
 		month = '0' + month;
 	}
-
 	if (day < 10) {
 		day = '0' + day;
 	}
-
 	if (hours < 10) {
 		hours = '0' + hours;
 	}
-
 	if (minus < 10) {
 		minus = '0' + minus;
 	}
-
 	if (seconds < 10) {
 		seconds = '0' + seconds;
 	}
